@@ -57,7 +57,7 @@
     - `ak/sk`：访问密钥
     - `topicId`：日志主题 ID
     - `token`：STS token（可空）
-    - `compress`：`lz4` 或 `zlib`
+    - `compress`：`lz4`
 
 ### 3A. 在真机上安装并运行
 
@@ -133,7 +133,7 @@ dependencyResolutionManagement {
 dependencies {
   // 轻量发送（推荐）
   implementation 'io.github.volcengine-tls:tls-android-producer:2.0.1'
-  // 使用 lz4 压缩时引入，否则可省略（不用 lz4 时可将 compressType 设为 zlib）
+  // 使用 lz4 压缩
   implementation 'net.jpountz.lz4:lz4:1.3.0'
 }
 ```
