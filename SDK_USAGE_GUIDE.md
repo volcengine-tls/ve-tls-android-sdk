@@ -57,7 +57,7 @@
     - `ak/sk`：访问密钥
     - `topicId`：日志主题 ID
     - `token`：STS token（可空）
-    - `compress`：`lz4` 或 `zlib`
+    - `compress`：`lz4`
 
 ### 3A. 在真机上安装并运行
 
@@ -133,7 +133,7 @@ dependencyResolutionManagement {
 dependencies {
   // 轻量发送（推荐）
   implementation 'io.github.volcengine-tls:tls-android-producer:2.0.1'
-  // 使用 lz4 压缩时引入，否则可省略（不用 lz4 时可将 compressType 设为 zlib）
+  // lz4 压缩引入
   implementation 'net.jpountz.lz4:lz4:1.3.0'
 }
 ```
@@ -206,7 +206,7 @@ LogProducerConfig cfg = new LogProducerConfig()
     .setAccessKeySecret(BuildConfig.TLS_SK)
     .setSecurityToken(BuildConfig.TLS_TOKEN) // 可为空
     .setTopicId(BuildConfig.TLS_TOPIC_ID)
-    .setCompressType("lz4") // 或 "zlib"
+    .setCompressType("lz4")
     .setSendThreadCount(2)
     .setRetryCount(3)
     .setPacketLogBytes(256 * 1024)
@@ -257,7 +257,7 @@ client.close();
 在 TLS 控制台按 `topicId` 查询最新日志，检查：
 - 是否能看到你写入的 key/value
 - 时间字段是否正确
-- 压缩类型是否与配置一致（lz4/zlib）
+- 压缩类型是否与配置一致（lz4）
 
 建议你按下面“截图式步骤”逐步核对（不同控制台 UI 可能略有差异，但路径一致）：
 
@@ -309,7 +309,6 @@ Release 打包开启 R8 后，如遇运行时反射/序列化相关问题，按�
 
 -dontwarn org.slf4j.impl.StaticLoggerBinder
 
-# 如果你使用 lz4 压缩，保留下面两行；不用 lz4（compressType=zlib）可删除
 -keep class net.jpountz.** { *; }
 -dontwarn net.jpountz.**
 ```
